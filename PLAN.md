@@ -118,15 +118,15 @@ RecipeLine:  recipe → ingredient, amount ("200 g"), note ("diced")
 - [x] Sources → Claude, ChatGPT, TikTok
 - [x] Missing filter → up to 2 by default, adjustable 0–5, with ingredient swaps
 - [x] Install → free Apple ID, reinstall from Xcode every 7 days
-- [ ] GitHub sync → private repo or public? (see below)
+- [x] GitHub sync → public repo github.com/mrrcactus/chefsecrets
 - [ ] List 5 recipes you'd add first. They'll be the test data.
 
-## GitHub sync (proposed, phase 2.5)
+## GitHub sync (built)
 
 Idea: a GitHub repo with a `recipes/` folder. Each recipe is one `.txt` file in the ChefSecrets format. Claude (or you) can add a file and push it, and the app pulls new and changed files when you tap **Sync**.
 
 - **Manual add still works.** Recipes added on the phone stay on the phone. The app remembers which recipes came from GitHub (`githubPath`, already in the data model) so a sync updates them instead of duplicating them.
 - **One-way sync:** GitHub → phone. Writing back to GitHub from the phone would need a token with write access stored on the phone, which isn't worth it for v1.
-- **Private repo** keeps recipes off the public internet. The app then needs a read-only GitHub token, which you create on github.com and paste into the app's settings yourself.
+- **Public repo**, so the app needs no token. It syncs quietly on launch and when you pull down on the list.
 - **Optional GitHub Action:** an automatic check that runs on every push and flags any recipe file that's missing a title, macros or ingredients.
 - **Gotcha:** if you edit a GitHub recipe on the phone and the file changes later on GitHub, the next sync overwrites your phone edit.

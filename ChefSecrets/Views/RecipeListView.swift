@@ -99,6 +99,8 @@ struct RecipeListView: View {
                 }
             }
             .refreshable { await sync() }
+            // Quiet sync on launch; failures (e.g. offline) only show when you sync by hand.
+            .task { _ = try? await GitHubSync.run(context: context) }
             .alert("GitHub sync", isPresented: Binding(
                 get: { syncMessage != nil },
                 set: { if !$0 { syncMessage = nil } }
