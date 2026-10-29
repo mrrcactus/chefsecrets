@@ -24,6 +24,41 @@ enum RecipeSource: String, CaseIterable, Identifiable {
     }
 }
 
+enum RecipeCategory: String, CaseIterable, Identifiable {
+    case breakfast, meal, dessert, other
+
+    var id: String { rawValue }
+
+    /// Plural, for section headers and filter chips.
+    var label: String {
+        switch self {
+        case .breakfast: "Breakfast"
+        case .meal: "Meals"
+        case .dessert: "Desserts"
+        case .other: "Other"
+        }
+    }
+
+    var symbol: String {
+        switch self {
+        case .breakfast: "sun.horizon.fill"
+        case .meal: "fork.knife"
+        case .dessert: "birthday.cake.fill"
+        case .other: "takeoutbag.and.cup.and.straw.fill"
+        }
+    }
+
+    /// Reads "Breakfast", "Meal", "Meals", "dinner", etc. Anything unrecognised is Other.
+    init(text: String) {
+        switch text.trimmingCharacters(in: .whitespaces).lowercased() {
+        case "breakfast", "brunch": self = .breakfast
+        case "meal", "meals", "lunch", "dinner", "main": self = .meal
+        case "dessert", "desserts", "sweet", "sweets": self = .dessert
+        default: self = .other
+        }
+    }
+}
+
 @Model
 final class Recipe {
     var title: String = ""
@@ -34,6 +69,7 @@ final class Recipe {
     var protein: Double = 0
     var carbs: Double = 0
     var fat: Double = 0
+    var categoryRaw: String = RecipeCategory.other.rawValue
     var sourceRaw: String = RecipeSource.me.rawValue
     var sourceLink: String = ""
     @Attribute(.externalStorage) var photo: Data?
@@ -47,6 +83,11 @@ final class Recipe {
 
     init(title: String) {
         self.title = title
+    }
+
+    var category: RecipeCategory {
+        get { RecipeCategory(rawValue: categoryRaw) ?? .other }
+        set { categoryRaw = newValue.rawValue }
     }
 
     var source: RecipeSource {

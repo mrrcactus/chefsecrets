@@ -6,6 +6,7 @@ enum ChefPrompt {
     Give me the recipe in exactly this plain-text format (no markdown, no bold, nothing before or after it):
 
     TITLE: <recipe name>
+    CATEGORY: <Breakfast, Meal, Dessert or Other>
     SERVINGS: <number>
     MACROS PER SERVING: <calories> kcal | <protein> P | <carbs> C | <fat> F
     INGREDIENTS:

@@ -37,6 +37,7 @@ enum RecipeStore {
         recipe.protein = draft.protein
         recipe.carbs = draft.carbs
         recipe.fat = draft.fat
+        recipe.category = draft.category
         recipe.source = draft.source
         recipe.sourceLink = draft.sourceLink.trimmingCharacters(in: .whitespacesAndNewlines)
         recipe.photo = draft.photo

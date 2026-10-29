@@ -27,6 +27,8 @@ struct RecipeDetailView: View {
                 VStack(alignment: .leading, spacing: 6) {
                     Text(recipe.title).font(.largeTitle.bold())
                     HStack {
+                        Label(recipe.category.label, systemImage: recipe.category.symbol)
+                        Text("·")
                         Label(recipe.source.label, systemImage: recipe.source.symbol)
                         Text("· makes \(recipe.servings)")
                     }

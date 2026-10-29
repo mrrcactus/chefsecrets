@@ -23,6 +23,7 @@ struct RecipeDraft {
     var fat: Double = 0
     var lines: [LineDraft] = []
     var steps: [StepDraft] = []
+    var category: RecipeCategory = .other
     var source: RecipeSource = .me
     var sourceLink = ""
     var photo: Data?
@@ -40,6 +41,7 @@ struct RecipeDraft {
             LineDraft(amount: $0.amount, name: $0.ingredient?.name ?? "", swaps: $0.swaps.joined(separator: ", "))
         }
         steps = recipe.steps.map { StepDraft(text: $0) }
+        category = recipe.category
         source = recipe.source
         sourceLink = recipe.sourceLink
         photo = recipe.photo
@@ -73,6 +75,9 @@ enum RecipeParser {
                     continue
                 case "LINK", "SOURCE", "SOURCE LINK", "URL":
                     draft.sourceLink = rest
+                    continue
+                case "CATEGORY", "TYPE", "MEAL":
+                    draft.category = RecipeCategory(text: rest)
                     continue
                 case "FROM":
                     if let source = RecipeSource.allCases.first(where: { $0.label.lowercased() == rest.lowercased() }) {

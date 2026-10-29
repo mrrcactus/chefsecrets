@@ -1,4 +1,5 @@
 TITLE: Chicken Pesto Pasta
+CATEGORY: Meal
 FROM: ChatGPT
 SERVINGS: 2
 MACROS PER SERVING: 540 kcal | 45 P | 52 C | 15 F

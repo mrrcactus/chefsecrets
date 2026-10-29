@@ -30,6 +30,8 @@ struct RecipeListView: View {
     @AppStorage("recipeSort") private var sort: RecipeSort = .newest
     @AppStorage("filterByPantry") private var filterByPantry = false
     @AppStorage("maxMissing") private var maxMissing = 2
+    /// Empty string means "All".
+    @AppStorage("categoryFilter") private var categoryFilter = ""
     @State private var showingPaste = false
     @State private var showingNew = false
     @State private var syncing = false
@@ -37,8 +39,9 @@ struct RecipeListView: View {
     @Environment(\.modelContext) private var context
 
     private var visible: [Recipe] {
-        let matches = search.isEmpty ? recipes : recipes.filter {
-            $0.title.localizedCaseInsensitiveContains(search)
+        let matches = recipes.filter {
+            (search.isEmpty || $0.title.localizedCaseInsensitiveContains(search))
+                && (categoryFilter.isEmpty || $0.categoryRaw == categoryFilter)
         }
         switch sort {
         case .newest: return matches
@@ -52,16 +55,14 @@ struct RecipeListView: View {
         NavigationStack {
             ScrollView {
                 LazyVStack(alignment: .leading, spacing: 12) {
+                    categoryChips
                     filterBar
                     if recipes.isEmpty {
                         emptyState
                     } else if filterByPantry {
                         pantryGroups
                     } else {
-                        ForEach(visible) { recipe in
-                            NavigationLink(value: recipe) { RecipeCard(recipe: recipe) }
-                                .buttonStyle(.plain)
-                        }
+                        categoryGroups
                     }
                 }
                 .padding()
@@ -125,6 +126,55 @@ struct RecipeListView: View {
             syncMessage = try await GitHubSync.run(context: context).summary
         } catch {
             syncMessage = "Couldn't sync: \(error.localizedDescription)"
+        }
+    }
+
+    private var categoryChips: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 8) {
+                chip("All", symbol: "square.grid.2x2.fill", value: "")
+                ForEach(RecipeCategory.allCases) { chip($0.label, symbol: $0.symbol, value: $0.rawValue) }
+            }
+        }
+    }
+
+    private func chip(_ title: String, symbol: String, value: String) -> some View {
+        let selected = categoryFilter == value
+        return Button {
+            withAnimation { categoryFilter = value }
+        } label: {
+            Label(title, systemImage: symbol)
+                .font(.subheadline.bold())
+                .padding(.horizontal, 12)
+                .padding(.vertical, 8)
+                .background(selected ? Color.brandPrimary : Color.brandCard, in: Capsule())
+                .foregroundStyle(selected ? Color.white : Color.brandDeep)
+        }
+        .buttonStyle(.plain)
+    }
+
+    /// Breakfast, Meals, Desserts, Other — each as its own block, skipping empty ones.
+    @ViewBuilder
+    private var categoryGroups: some View {
+        let shown = visible
+        if shown.isEmpty {
+            Text("No recipes here yet.")
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+                .padding(.top, 8)
+        }
+        ForEach(RecipeCategory.allCases) { category in
+            let group = shown.filter { $0.category == category }
+            if !group.isEmpty {
+                Label(category.label, systemImage: category.symbol)
+                    .font(.title3.bold())
+                    .foregroundStyle(Color.brandDeep)
+                    .padding(.top, 6)
+                ForEach(group) { recipe in
+                    NavigationLink(value: recipe) { RecipeCard(recipe: recipe) }
+                        .buttonStyle(.plain)
+                }
+            }
         }
     }
 

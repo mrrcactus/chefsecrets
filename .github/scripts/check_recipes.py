@@ -7,6 +7,7 @@ import sys
 from pathlib import Path
 
 SOURCES = {"claude", "chatgpt", "tiktok", "me"}
+CATEGORIES = {"breakfast", "meal", "meals", "dessert", "desserts", "other"}
 
 
 def check(path: Path) -> list[str]:
@@ -22,6 +23,11 @@ def check(path: Path) -> list[str]:
     servings = field("SERVINGS")
     if not servings or not re.match(r"\d+", servings):
         problems.append("missing 'SERVINGS: <number>'")
+    category = field("CATEGORY")
+    if not category:
+        problems.append("missing 'CATEGORY: Breakfast | Meal | Dessert | Other'")
+    elif category.lower() not in CATEGORIES:
+        problems.append(f"CATEGORY must be Breakfast, Meal, Dessert or Other (got '{category}')")
     source = field("FROM")
     if source and source.lower() not in SOURCES:
         problems.append(f"FROM must be one of Claude, ChatGPT, TikTok, Me (got '{source}')")

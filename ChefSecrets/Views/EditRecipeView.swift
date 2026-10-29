@@ -31,6 +31,9 @@ struct EditRecipeView: View {
             Section {
                 TextField("Recipe name", text: $draft.title)
                     .font(.headline)
+                Picker("Category", selection: $draft.category) {
+                    ForEach(RecipeCategory.allCases) { Label($0.label, systemImage: $0.symbol).tag($0) }
+                }
                 Stepper("Servings: \(draft.servings)", value: $draft.servings, in: 1...20)
                 Picker("From", selection: $draft.source) {
                     ForEach(RecipeSource.allCases) { Label($0.label, systemImage: $0.symbol).tag($0) }

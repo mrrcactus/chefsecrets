@@ -10,6 +10,7 @@ A GitHub Action checks every file on push. A red ✗ on the commit means a file 
 
 ```
 TITLE: Chicken Pesto Pasta
+CATEGORY: Meal
 FROM: ChatGPT
 SERVINGS: 2
 MACROS PER SERVING: 540 kcal | 45 P | 52 C | 15 F
@@ -21,4 +22,4 @@ STEPS:
 1. Boil the penne...
 ```
 
-`FROM` is one of Claude, ChatGPT, TikTok or Me. Macros are per serving. `| swaps: ...` is optional.
+`CATEGORY` is Breakfast, Meal, Dessert or Other. `FROM` is one of Claude, ChatGPT, TikTok or Me. Macros are per serving. `| swaps: ...` is optional.

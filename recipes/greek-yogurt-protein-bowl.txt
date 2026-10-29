@@ -1,4 +1,5 @@
 TITLE: Greek Yogurt Protein Bowl
+CATEGORY: Breakfast
 FROM: Claude
 SERVINGS: 1
 MACROS PER SERVING: 410 kcal | 38 P | 45 C | 9 F

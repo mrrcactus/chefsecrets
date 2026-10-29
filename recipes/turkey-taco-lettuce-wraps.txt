@@ -1,4 +1,5 @@
 TITLE: Turkey Taco Lettuce Wraps
+CATEGORY: Meal
 FROM: TikTok
 SERVINGS: 3
 MACROS PER SERVING: 330 kcal | 34 P | 12 C | 16 F
