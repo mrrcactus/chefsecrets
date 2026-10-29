@@ -1,0 +1,17 @@
+TITLE: Chicken Pesto Pasta
+FROM: ChatGPT
+SERVINGS: 2
+MACROS PER SERVING: 540 kcal | 45 P | 52 C | 15 F
+INGREDIENTS:
+- 250 g | chicken breast | swaps: turkey breast, firm tofu
+- 140 g dry | penne | swaps: chickpea pasta, rotini
+- 2 tbsp | pesto
+- 1 cup | cherry tomato
+- 1 cup | spinach | swaps: kale, arugula
+- 1 tsp | olive oil
+- to taste | salt
+STEPS:
+1. Boil the penne in salted water until al dente, then drain.
+2. Cube and season the chicken, then cook in olive oil over medium-high heat for 6-7 minutes.
+3. Add the halved tomatoes and spinach and cook until the spinach wilts.
+4. Toss everything with the pesto and serve.

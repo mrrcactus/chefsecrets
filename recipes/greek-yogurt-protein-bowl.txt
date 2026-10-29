@@ -1,0 +1,13 @@
+TITLE: Greek Yogurt Protein Bowl
+FROM: Claude
+SERVINGS: 1
+MACROS PER SERVING: 410 kcal | 38 P | 45 C | 9 F
+INGREDIENTS:
+- 250 g | greek yogurt | swaps: skyr, cottage cheese
+- 1/2 scoop | vanilla protein powder
+- 1/2 cup | blueberries | swaps: strawberries, raspberries
+- 30 g | granola | swaps: oats
+- 1 tsp | honey | swaps: maple syrup
+STEPS:
+1. Stir the protein powder into the yogurt until smooth.
+2. Top with berries, granola and a drizzle of honey.

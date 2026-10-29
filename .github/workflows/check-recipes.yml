@@ -1,0 +1,14 @@
+name: Check recipes
+
+on:
+  push:
+    paths: ["recipes/**", ".github/scripts/check_recipes.py"]
+  pull_request:
+    paths: ["recipes/**"]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 .github/scripts/check_recipes.py
